@@ -13,6 +13,7 @@ import com.applovin.adview.AppLovinAdViewDisplayErrorCode;
 import com.applovin.adview.AppLovinAdViewEventListener;
 
 import com.applovin.mediation.MaxAd;
+import com.applovin.mediation.MaxAdListener;
 import com.applovin.mediation.MaxReward;
 import com.applovin.mediation.MaxAdViewAdListener;
 
@@ -67,12 +68,12 @@ public class BannerMax extends FlutterActivity implements PlatformView, AppLovin
 
     public void Listeners() {
         
-        if (this.Banner != null) {
-            this.Banner.setAdViewEventListener(this);
-            this.Banner.setAdLoadListener(this);
-            this.Banner.setAdDisplayListener(this);
-            this.Banner.setAdClickListener(this);
-        }
+//         if (this.Banner != null) {
+//             this.Banner.setAdViewEventListener(this);
+//             this.Banner.setAdLoadListener(this);
+//             this.Banner.setAdDisplayListener(this);
+//             this.Banner.setAdClickListener(this);
+//         }
        
 
     }
@@ -108,7 +109,7 @@ public class BannerMax extends FlutterActivity implements PlatformView, AppLovin
 
     @Override
     public void adFailedToDisplay(AppLovinAd ad, AppLovinAdView adView, AppLovinAdViewDisplayErrorCode code) {
-        this.Banner.loadNextAd();
+        //this.Banner.loadNextAd();
         FlutterApplovinMaxPlugin.getInstance().Callback("AdFailedToDisplay");
     }
 
@@ -124,7 +125,7 @@ public class BannerMax extends FlutterActivity implements PlatformView, AppLovin
 
     @Override
     public void adHidden(AppLovinAd ad) {
-        this.Banner.loadNextAd();
+        //this.Banner.loadNextAd();
         FlutterApplovinMaxPlugin.getInstance().Callback("AdHidden");
     }
 
@@ -135,7 +136,7 @@ public class BannerMax extends FlutterActivity implements PlatformView, AppLovin
 
     @Override
     public void failedToReceiveAd(int errorCode) {
-        this.Banner.loadNextAd();
+        //this.Banner.loadNextAd();
         Log.e("AppLovin", "FailedToReceiveAd error sdk code " + errorCode);
         FlutterApplovinMaxPlugin.getInstance().Callback("FailedToReceiveAd");
     }
