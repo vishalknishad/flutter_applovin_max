@@ -89,7 +89,7 @@ public class FlutterApplovinMaxPlugin  implements FlutterPlugin, MethodCallHandl
                 /* Inter */
                 case "InitInterAd":
                     AppLovinSdk.getInstance(context).setMediationProvider( AppLovinMediationProvider.MAX );
-                    AppLovinSdk.getInstance( this ).initializeSdk( new AppLovinSdk.SdkInitializationListener()
+                    AppLovinSdk.getInstance(context).initializeSdk( new AppLovinSdk.SdkInitializationListener()
         {
             @Override
             public void onSdkInitialized(final AppLovinSdkConfiguration config)
