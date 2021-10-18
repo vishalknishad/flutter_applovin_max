@@ -62,7 +62,8 @@ public class BannerMax extends FlutterActivity implements PlatformView, AppLovin
                 this.dpToPx(context, this.size.getWidth()), this.dpToPx(context, this.size.getHeight()));
         layout.gravity = Gravity.CENTER;
         this.Banner.setLayoutParams(layout);
-        this.Listeners();
+//         this.Listeners();
+            this.Banner.setListener( this );
         this.Banner.loadAd();
     }
 
