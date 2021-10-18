@@ -93,52 +93,27 @@ public class BannerMax extends FlutterActivity implements PlatformView, AppLovin
         //this.Banner.destroy();
     }
 
-    @Override
-    public void adOpenedFullscreen(AppLovinAd ad, AppLovinAdView adView) {
-        FlutterApplovinMaxPlugin.getInstance().Callback("AdOpenedFullscreen");
-    }
+       @Override
+    public void onAdLoaded(final MaxAd ad) { FlutterApplovinMaxPlugin.getInstance().Callback("AdLoaded"); }
 
     @Override
-    public void adClosedFullscreen(AppLovinAd ad, AppLovinAdView adView) {
-        FlutterApplovinMaxPlugin.getInstance().Callback("AdClosedFullscreen");
-    }
+    public void onAdLoadFailed(final String adUnitId, final MaxError maxError) { FlutterApplovinMaxPlugin.getInstance().Callback("AdLoadFailed"); }
 
     @Override
-    public void adLeftApplication(AppLovinAd ad, AppLovinAdView adView) {
-        FlutterApplovinMaxPlugin.getInstance().Callback("AdLeftApplication");
-    }
+    public void onAdHidden(final MaxAd ad) { FlutterApplovinMaxPlugin.getInstance().Callback("AdHidden"); }
 
     @Override
-    public void adFailedToDisplay(AppLovinAd ad, AppLovinAdView adView, AppLovinAdViewDisplayErrorCode code) {
-        //this.Banner.loadNextAd();
-        FlutterApplovinMaxPlugin.getInstance().Callback("AdFailedToDisplay");
-    }
+    public void onAdDisplayFailed(final MaxAd ad, final MaxError maxError) { FlutterApplovinMaxPlugin.getInstance().Callback("AdDisplayFailed"); }
 
     @Override
-    public void adClicked(AppLovinAd ad) {
-        FlutterApplovinMaxPlugin.getInstance().Callback("AdClicked");
-    }
+    public void onAdDisplayed(final MaxAd ad) { FlutterApplovinMaxPlugin.getInstance().Callback("AdDisplayed"); }
 
     @Override
-    public void adDisplayed(AppLovinAd ad) {
-        FlutterApplovinMaxPlugin.getInstance().Callback("AdDisplayed");
-    }
+    public void onAdClicked(final MaxAd ad) { FlutterApplovinMaxPlugin.getInstance().Callback("AdClicked"); }
 
     @Override
-    public void adHidden(AppLovinAd ad) {
-        //this.Banner.loadNextAd();
-        FlutterApplovinMaxPlugin.getInstance().Callback("AdHidden");
-    }
+    public void onAdExpanded(final MaxAd ad) { FlutterApplovinMaxPlugin.getInstance().Callback("AdCExpanded"); }
 
     @Override
-    public void adReceived(AppLovinAd ad) {
-        FlutterApplovinMaxPlugin.getInstance().Callback("AdReceived");
-    }
-
-    @Override
-    public void failedToReceiveAd(int errorCode) {
-        //this.Banner.loadNextAd();
-        Log.e("AppLovin", "FailedToReceiveAd error sdk code " + errorCode);
-        FlutterApplovinMaxPlugin.getInstance().Callback("FailedToReceiveAd");
-    }
+    public void onAdCollapsed(final MaxAd ad) { FlutterApplovinMaxPlugin.getInstance().Callback("AdCollapsed"); }
 }
