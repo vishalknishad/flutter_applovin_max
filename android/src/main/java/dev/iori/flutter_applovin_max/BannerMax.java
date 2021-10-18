@@ -13,9 +13,10 @@ import com.applovin.adview.AppLovinAdViewDisplayErrorCode;
 import com.applovin.adview.AppLovinAdViewEventListener;
 
 import com.applovin.mediation.MaxAd;
-import com.applovin.mediation.MaxAdListener;
+//import com.applovin.mediation.MaxAdListener;
 import com.applovin.mediation.MaxReward;
 import com.applovin.mediation.MaxAdViewAdListener;
+import com.applovin.mediation.MaxError;
 
 import com.applovin.mediation.ads.MaxAdView;
 import com.applovin.sdk.AppLovinAd;
@@ -30,8 +31,7 @@ import io.flutter.embedding.android.FlutterActivity;
 import io.flutter.plugin.platform.PlatformView;
 
 
-public class BannerMax extends FlutterActivity implements PlatformView, AppLovinAdClickListener, AppLovinAdDisplayListener,
-        AppLovinAdViewEventListener, AppLovinAdLoadListener {
+public class BannerMax extends FlutterActivity implements PlatformView, MaxAdViewAdListener {
     final MaxAdView Banner;
     final HashMap<String, AppLovinAdSize> sizes = new HashMap<String, AppLovinAdSize>() {
         {
@@ -93,7 +93,7 @@ public class BannerMax extends FlutterActivity implements PlatformView, AppLovin
         //this.Banner.destroy();
     }
 
-       @Override
+    @Override
     public void onAdLoaded(final MaxAd ad) { FlutterApplovinMaxPlugin.getInstance().Callback("AdLoaded"); }
 
     @Override
