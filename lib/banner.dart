@@ -23,31 +23,31 @@ class BannerMaxView extends StatelessWidget {
     BannerAdSize.mrec: 'MREC'
   };
   final Map<BannerAdSize, BannerPx> sizesNum = {
-    BannerAdSize.banner:  BannerPx(350, 50),
+    BannerAdSize.banner: BannerPx(350, 50),
     BannerAdSize.leader: BannerPx(double.infinity, 90),
     BannerAdSize.mrec: BannerPx(300, 250)
   };
   final BannerAdSize size;
   final String adUnitId;
 
-  BannerMaxView(this.listener, this.size, this.adUnitId,{Key? key}) : super(key: key);
+  BannerMaxView(this.listener, this.size, this.adUnitId, {Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final AndroidView androidView = AndroidView(
         viewType: '/Banner',
         key: UniqueKey(),
-        creationParams: {'Size': sizes[size], 'UnitId' : adUnitId},
+        creationParams: {'Size': sizes[size], 'UnitId': adUnitId},
         creationParamsCodec: const StandardMessageCodec(),
         onPlatformViewCreated: (int i) {
-          const MethodChannel channel = MethodChannel('AppLovin');
-          channel.setMethodCallHandler(
-                  (MethodCall call) async => FlutterApplovinMax.handleMethod(call, listener));
+          const MethodChannel channel = MethodChannel('flutter_applovin_max');
+          channel.setMethodCallHandler((MethodCall call) async =>
+              FlutterApplovinMax.handleMethod(call, listener));
         });
     return Container(
-      width: sizesNum[size]?.width,
-      height: sizesNum[size]?.height,
-      child: Platform.isAndroid ? androidView : null
-    );
+        width: sizesNum[size]?.width,
+        height: sizesNum[size]?.height,
+        child: Platform.isAndroid ? androidView : null);
   }
 }
