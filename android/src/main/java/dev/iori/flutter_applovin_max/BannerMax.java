@@ -56,7 +56,7 @@ public class BannerMax extends FlutterActivity implements PlatformView, MaxAdVie
             this.AdUnitId = "YOUR_AD_UNIT_ID";
         }
 
-        this.Banner = new MaxAdView( AdUnitId, FlutterApplovinMaxPlugin.activity);
+        this.Banner = new MaxAdView( AdUnitId, FlutterApplovinMaxPlugin.getInstance().activity);
         final FrameLayout.LayoutParams layout = new FrameLayout.LayoutParams(
                 this.dpToPx(context, this.size.getWidth()), this.dpToPx(context, this.size.getHeight()));
         layout.gravity = Gravity.CENTER;
@@ -89,7 +89,9 @@ public class BannerMax extends FlutterActivity implements PlatformView, MaxAdVie
     @Override
     public void onAdLoadFailed(final String adUnitId, final MaxError maxError) { 
         System.out.print("second statement. ");
-        FlutterApplovinMaxPlugin.getInstance().Callback("AdLoadFailed"); }
+        FlutterApplovinMaxPlugin.getInstance().Callback("AdLoadFailed");
+        this.Banner.loadAd();
+         }
 
     @Override
     public void onAdHidden(final MaxAd ad) { 
@@ -99,7 +101,9 @@ public class BannerMax extends FlutterActivity implements PlatformView, MaxAdVie
     @Override
     public void onAdDisplayFailed(final MaxAd ad, final MaxError maxError) {
         System.out.print("forth statement. ");
-        FlutterApplovinMaxPlugin.getInstance().Callback("AdDisplayFailed"); }
+        FlutterApplovinMaxPlugin.getInstance().Callback("AdDisplayFailed");
+        this.Banner.loadAd();
+         }
 
     @Override
     public void onAdDisplayed(final MaxAd ad) {
