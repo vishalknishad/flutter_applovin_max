@@ -56,7 +56,7 @@ public class BannerMax extends FlutterActivity implements PlatformView, MaxAdVie
             this.AdUnitId = "YOUR_AD_UNIT_ID";
         }
 
-        this.Banner = new MaxAdView( AdUnitId, FlutterApplovinMaxPlugin.activity);
+        this.Banner = new MaxAdView( AdUnitId, FlutterApplovinMaxPlugin.getInstance().activity);
         final FrameLayout.LayoutParams layout = new FrameLayout.LayoutParams(
                 this.dpToPx(context, this.size.getWidth()), this.dpToPx(context, this.size.getHeight()));
         layout.gravity = Gravity.CENTER;
