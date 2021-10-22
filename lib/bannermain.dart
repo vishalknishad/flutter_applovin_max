@@ -1,9 +1,25 @@
-import 'package:flutter_applovin_max/flutter_applovin_max.dart';
+library applovin;
+
+//import 'package:flutter_applovin_max/flutter_applovin_max.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:expandable_page_view/expandable_page_view.dart';
 import 'dart:io';
 import 'dart:async';
+
+enum AppLovinAdListenerx {
+  adLoaded,
+  adLoadFailed,
+  adDisplayed,
+  adHidden,
+  adClicked,
+  onAdDisplayFailed,
+  onRewardedVideoStarted,
+  onRewardedVideoCompleted,
+  onUserRewarded
+}
+
+typedef AppLovinListener = Function(AppLovinAdListenerx? listener);
 
 enum BannerAdSize {
   banner,
@@ -18,6 +34,19 @@ class BannerPx {
 }
 
 class BannerMaxViewMain extends StatelessWidget {
+  static final Map<String, AppLovinAdListenerx> appLovinAdListener =
+      <String, AppLovinAdListenerx>{
+    'AdLoaded': AppLovinAdListenerx.adLoaded,
+    'AdLoadFailed': AppLovinAdListenerx.adLoadFailed,
+    'AdDisplayed': AppLovinAdListenerx.adDisplayed,
+    'AdHidden': AppLovinAdListenerx.adHidden,
+    'AdClicked': AppLovinAdListenerx.adClicked,
+    'AdFailedToDisplay': AppLovinAdListenerx.onAdDisplayFailed,
+    'RewardedVideoStarted': AppLovinAdListenerx.onRewardedVideoStarted,
+    'RewardedVideoCompleted': AppLovinAdListenerx.onRewardedVideoCompleted,
+    'UserRewarded': AppLovinAdListenerx.onUserRewarded,
+  };
+
   final AppLovinListener listener;
   final Map<BannerAdSize, String> sizes = {
     BannerAdSize.banner: 'BANNER',
@@ -49,8 +78,7 @@ class BannerMaxViewMain extends StatelessWidget {
         onPlatformViewCreated: (int i) {
           const MethodChannel channel = MethodChannel('flutter_applovin_max');
           channel.setMethodCallHandler((MethodCall call) async =>
-              FlutterApplovinMax.handleMethod(call,
-                  (AppLovinAdListener? event) {
+              handleMethod(call, (AppLovinAdListenerx? event) {
                 print('event changed for ad unit ' + adUnitId);
                 print(event.toString());
                 if (event == AppLovinAdListener.adLoaded) {
@@ -85,5 +113,10 @@ class BannerMaxViewMain extends StatelessWidget {
         )
       ],
     );
+  }
+
+  static Future<void> handleMethod(
+      MethodCall call, AppLovinListener listener) async {
+    listener(AppLovinAdListenerx[call.method]);
   }
 }
