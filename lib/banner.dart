@@ -51,6 +51,8 @@ class BannerMaxView extends StatelessWidget {
           channel.setMethodCallHandler((MethodCall call) async =>
               FlutterApplovinMax.handleMethod(call,
                   (AppLovinAdListener? event) {
+                print('event changed for ad unit ' + adUnitId);
+                print(event.toString());
                 if (event == AppLovinAdListener.adLoaded) {
                   banner_value = "load";
                   controller.jumpToPage(0);
