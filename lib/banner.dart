@@ -39,22 +39,8 @@ class BannerMaxView extends StatelessWidget {
   BannerMaxView(this.listener, this.size, this.adUnitId, {Key? key})
       : super(key: key);
 
-  initState() {
-    // screens = [
-    //   Container(
-    //       width: sizesNum[size]?.width,
-    //       height: sizesNum[size]?.height,
-    //       child: Platform.isAndroid ? androidView : null),
-    //   Container(
-    //     // height: 30,
-    //     color: Colors.transparent,
-    //   )
-    // ];
-  }
-
   @override
   Widget build(BuildContext context) {
-    initState();
     final AndroidView androidView = AndroidView(
         viewType: '/Banner',
         key: UniqueKey(),
@@ -91,9 +77,8 @@ class BannerMaxView extends StatelessWidget {
         Container(
             width: sizesNum[size]?.width,
             height: sizesNum[size]?.height,
-            child: Platform.isAndroid ? androidView : null),
+            child: Platform.isAndroid ? androidView : Container()),
         Container(
-          // height: 30,
           color: Colors.transparent,
         )
       ],
