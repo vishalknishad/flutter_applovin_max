@@ -12,6 +12,8 @@ dependencies:
   flutter:
     sdk: flutter 
 
+  expandable_page_view: ^1.0.7
+
 dev_dependencies:
   pedantic_mono: ^1.11.0+2
   flutter_test:
