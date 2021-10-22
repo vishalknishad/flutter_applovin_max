@@ -31,8 +31,8 @@ class BannerMaxView extends StatelessWidget {
   };
   final BannerAdSize size;
   final String adUnitId;
-  late List<Widget> screens;
-  late AndroidView androidView;
+  // late List<Widget> screens;
+  // late AndroidView androidView;
   String banner_value = "";
   bool visible_banner = true;
   PageController controller = new PageController(initialPage: 0);
@@ -40,16 +40,16 @@ class BannerMaxView extends StatelessWidget {
       : super(key: key);
 
   initState() {
-    screens = [
-      Container(
-          width: sizesNum[size]?.width,
-          height: sizesNum[size]?.height,
-          child: Platform.isAndroid ? androidView : null),
-      Container(
-        // height: 30,
-        color: Colors.transparent,
-      )
-    ];
+    // screens = [
+    //   Container(
+    //       width: sizesNum[size]?.width,
+    //       height: sizesNum[size]?.height,
+    //       child: Platform.isAndroid ? androidView : null),
+    //   Container(
+    //     // height: 30,
+    //     color: Colors.transparent,
+    //   )
+    // ];
   }
 
   @override
@@ -87,7 +87,16 @@ class BannerMaxView extends StatelessWidget {
     return ExpandablePageView(
       physics: NeverScrollableScrollPhysics(),
       controller: controller,
-      children: screens,
+      children: [
+        Container(
+            width: sizesNum[size]?.width,
+            height: sizesNum[size]?.height,
+            child: Platform.isAndroid ? androidView : null),
+        Container(
+          // height: 30,
+          color: Colors.transparent,
+        )
+      ],
     );
   }
 }
