@@ -31,12 +31,13 @@ class BannerMaxView extends StatelessWidget {
   };
   final BannerAdSize size;
   final String adUnitId;
+  final String unique;
   // late List<Widget> screens;
   // late AndroidView androidView;
   String banner_value = "";
   bool visible_banner = true;
   PageController controller = new PageController(initialPage: 0);
-  BannerMaxView(this.listener, this.size, this.adUnitId, {Key? key})
+  BannerMaxView(this.listener, this.size, this.adUnitId, this.unique{Key? key})
       : super(key: key);
 
   @override
@@ -44,10 +45,10 @@ class BannerMaxView extends StatelessWidget {
     final AndroidView androidView = AndroidView(
         viewType: '/Banner',
         key: UniqueKey(),
-        creationParams: {'Size': sizes[size], 'UnitId': adUnitId},
+        creationParams: {'Size': sizes[size], 'id': adUnitId,'theme':'dark'},
         creationParamsCodec: const StandardMessageCodec(),
         onPlatformViewCreated: (int i) {
-          const MethodChannel channel = MethodChannel('flutter_applovin_max');
+          const MethodChannel channel = MethodChannel('flutter_applovin_banner_'+this.unique);
           channel.setMethodCallHandler((MethodCall call) async =>
               FlutterApplovinMax.handleMethod(call,
                   (AppLovinAdListener? event) {
