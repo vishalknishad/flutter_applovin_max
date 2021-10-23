@@ -37,7 +37,7 @@ class BannerMaxView extends StatelessWidget {
   String banner_value = "";
   bool visible_banner = true;
   PageController controller = new PageController(initialPage: 0);
-  BannerMaxView(this.listener, this.size, this.adUnitId, this.unique{Key? key})
+  BannerMaxView(this.listener, this.size, this.adUnitId, this.unique,{Key? key})
       : super(key: key);
 
   @override
