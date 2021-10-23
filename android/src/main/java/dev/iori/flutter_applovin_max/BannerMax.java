@@ -27,11 +27,13 @@ import com.applovin.sdk.AppLovinSdkUtils;
 import java.util.HashMap;
 import io.flutter.Log;
 import io.flutter.embedding.android.FlutterActivity;
+import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.platform.PlatformView;
 
 
 public class BannerMax extends FlutterActivity implements PlatformView, MaxAdViewAdListener {
     final MaxAdView Banner;
+    private final MethodChannel channel;
     final HashMap<String, AppLovinAdSize> sizes = new HashMap<String, AppLovinAdSize>() {
         {
             put("BANNER", AppLovinAdSize.BANNER);
@@ -43,7 +45,9 @@ public class BannerMax extends FlutterActivity implements PlatformView, MaxAdVie
     AppLovinAdSize size;
     String AdUnitId;
 
-    public BannerMax(Context context, HashMap args) {
+    public BannerMax(Context context,int id, HashMap args, BinaryMessenger messenger) {
+         this.channel = new MethodChannel(messenger,
+                "flutter_applovin_banner_" + args.get("unique").toString());
         Log.d("Banner Max Android", "Constructor");
         try {
             this.size = this.sizes.get(args.get("Size"));
@@ -51,7 +55,7 @@ public class BannerMax extends FlutterActivity implements PlatformView, MaxAdVie
             this.size = AppLovinAdSize.BANNER;
         }
         try {
-            this.AdUnitId = args.get("UnitId").toString();
+            this.AdUnitId = args.get("id").toString();
         } catch (Exception e) {
             this.AdUnitId = "YOUR_AD_UNIT_ID";
         }
@@ -84,44 +88,59 @@ public class BannerMax extends FlutterActivity implements PlatformView, MaxAdVie
     @Override
     public void onAdLoaded(final MaxAd ad) {
         System.out.print("first statement. ");  
-        FlutterApplovinMaxPlugin.getInstance().Callback("AdLoaded"); }
+         this.channel.invokeMethod("AdLoaded", null);
+        // FlutterApplovinMaxPlugin.getInstance().Callback("AdLoaded");
+         }
 
     @Override
     public void onAdLoadFailed(final String adUnitId, final MaxError maxError) { 
         System.out.print("second statement. ");
-        FlutterApplovinMaxPlugin.getInstance().Callback("AdLoadFailed");
+        // FlutterApplovinMaxPlugin.getInstance().Callback("AdLoadFailed");
+         this.channel.invokeMethod("AdLoadFailed", null);
         this.Banner.loadAd();
          }
 
     @Override
     public void onAdHidden(final MaxAd ad) { 
         System.out.print("third statement. ");
-        FlutterApplovinMaxPlugin.getInstance().Callback("AdHidden"); }
+        //FlutterApplovinMaxPlugin.getInstance().Callback("AdHidden");
+         this.channel.invokeMethod("AdHidden", null);
+        
+         }
 
     @Override
     public void onAdDisplayFailed(final MaxAd ad, final MaxError maxError) {
         System.out.print("forth statement. ");
-        FlutterApplovinMaxPlugin.getInstance().Callback("AdDisplayFailed");
+        //FlutterApplovinMaxPlugin.getInstance().Callback("AdDisplayFailed");
+         this.channel.invokeMethod("AdDisplayFailed", null);
         this.Banner.loadAd();
          }
 
     @Override
     public void onAdDisplayed(final MaxAd ad) {
         System.out.print("fifth statement. ");
-        FlutterApplovinMaxPlugin.getInstance().Callback("AdDisplayed"); }
+        //FlutterApplovinMaxPlugin.getInstance().Callback("AdDisplayed");
+         this.channel.invokeMethod("AdDisplayed", null);
+         }
 
     @Override
     public void onAdClicked(final MaxAd ad) { 
         System.out.print("sixth statement. ");
-        FlutterApplovinMaxPlugin.getInstance().Callback("AdClicked"); }
+       // FlutterApplovinMaxPlugin.getInstance().Callback("AdClicked"); 
+         this.channel.invokeMethod("AdClicked", null);
+        }
 
     @Override
     public void onAdExpanded(final MaxAd ad) { 
         System.out.print("seventh statement. ");
-        FlutterApplovinMaxPlugin.getInstance().Callback("AdCExpanded"); }
+       // FlutterApplovinMaxPlugin.getInstance().Callback("AdCExpanded");
+         this.channel.invokeMethod("AdCExpanded", null);
+         }
 
     @Override
     public void onAdCollapsed(final MaxAd ad) {
         System.out.print("eighth statement. ");
-        FlutterApplovinMaxPlugin.getInstance().Callback("AdCollapsed"); }
+        //FlutterApplovinMaxPlugin.getInstance().Callback("AdCollapsed");
+         this.channel.invokeMethod("AdCollapsed", null);
+         }
 }
