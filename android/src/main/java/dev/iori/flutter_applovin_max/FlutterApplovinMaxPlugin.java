@@ -37,7 +37,7 @@ public class FlutterApplovinMaxPlugin  implements FlutterPlugin, MethodCallHandl
 
     @Override
     public void onAttachedToEngine(@NonNull FlutterPluginBinding flutterPluginBinding) {
-        this.RegistrarBanner(flutterPluginBinding.getFlutterEngine().getPlatformViewsController().getRegistry());
+        this.RegistrarBanner(flutterPluginBinding.getFlutterEngine().getPlatformViewsController().getRegistry(),flutterPluginBinding.getBinaryMessenger());
         this.onAttachedToEngine(flutterPluginBinding.getApplicationContext(), flutterPluginBinding.getBinaryMessenger());
     }
 
@@ -63,8 +63,8 @@ public class FlutterApplovinMaxPlugin  implements FlutterPlugin, MethodCallHandl
     public FlutterApplovinMaxPlugin() {
     }
 
-    public void RegistrarBanner(PlatformViewRegistry registry){
-        registry.registerViewFactory("/Banner", new BannerFactory());
+    public void RegistrarBanner(PlatformViewRegistry registry, BinaryMessenger messenger){
+        registry.registerViewFactory("/Banner", new BannerFactory(messenger));
     }
 
     @Override
