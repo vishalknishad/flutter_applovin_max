@@ -26,6 +26,7 @@ import com.applovin.sdk.AppLovinAdSize;
 import com.applovin.sdk.AppLovinSdkUtils;
 import java.util.HashMap;
 import io.flutter.Log;
+import io.flutter.plugin.common.BinaryMessenger;
 import io.flutter.embedding.android.FlutterActivity;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.platform.PlatformView;
