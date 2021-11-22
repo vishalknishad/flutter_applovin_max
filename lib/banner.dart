@@ -48,7 +48,7 @@ class BannerMaxView extends StatelessWidget {
         creationParams: {'Size': sizes[size], 'id': adUnitId,'theme':'dark'},
         creationParamsCodec: const StandardMessageCodec(),
         onPlatformViewCreated: (int i) {
-          const MethodChannel channel = MethodChannel('flutter_applovin_banner_'+this.unique);
+          MethodChannel channel = MethodChannel('flutter_applovin_banner_'+this.unique);
           channel.setMethodCallHandler((MethodCall call) async =>
               FlutterApplovinMax.handleMethod(call,
                   (AppLovinAdListener? event) {
