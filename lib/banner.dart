@@ -37,18 +37,28 @@ class BannerMaxView extends StatelessWidget {
   String banner_value = "";
   bool visible_banner = true;
   PageController controller = new PageController(initialPage: 0);
-  BannerMaxView(this.listener, this.size, this.adUnitId, this.unique,{Key? key})
+  BannerMaxView(this.listener, this.size, this.adUnitId, this.unique,
+      {Key? key})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    int where = 0;
     final AndroidView androidView = AndroidView(
         viewType: '/Banner',
         key: UniqueKey(),
-        creationParams: {'Size': sizes[size], 'id': adUnitId,'theme':'dark'},
+        creationParams: {
+          'Size': sizes[size],
+          'id': adUnitId,
+          'theme': 'dark',
+          'unique': unique
+        },
         creationParamsCodec: const StandardMessageCodec(),
         onPlatformViewCreated: (int i) {
-          MethodChannel channel = MethodChannel('flutter_applovin_banner_'+this.unique);
+          print("unique is " + unique);
+          //const MethodChannel channel = MethodChannel('flutter_applovin_banner_'+this.unique);
+          MethodChannel channel =
+              MethodChannel('flutter_applovin_banner_' + unique);
           channel.setMethodCallHandler((MethodCall call) async =>
               FlutterApplovinMax.handleMethod(call,
                   (AppLovinAdListener? event) {
@@ -56,21 +66,29 @@ class BannerMaxView extends StatelessWidget {
                 print(event.toString());
                 if (event == AppLovinAdListener.adLoaded) {
                   banner_value = "load";
+                  where = 0;
                   controller.jumpToPage(0);
-                  Timer(Duration(seconds: 2), () {
-                    print('timer ended');
-                    print(banner_value);
-                    if (banner_value == "load") {
-                      controller.jumpToPage(1);
-                    }
-                  });
+                  // Timer(Duration(seconds: 2), () {
+                  //   print('timer ended');
+                  //   print(banner_value);
+                  //   if (banner_value == "load") {
+                  //     controller.jumpToPage(1);
+                  //   }
+                  // });
                 } else if (event == AppLovinAdListener.adDisplayed) {
                   banner_value = "display";
-                  controller.jumpToPage(0);
-                } else {
-                  banner_value = "other";
+                  if (where == 1) {
+                    controller.jumpToPage(0);
+                  }
+                } else if (event == AppLovinAdListener.adLoadFailed) {
+                  banner_value = "failed";
+                  where = 1;
                   controller.jumpToPage(1);
                 }
+                // else {
+                //               banner_value = "other";
+                //               controller.jumpToPage(1);
+                //             }
               }));
         });
     return ExpandablePageView(
