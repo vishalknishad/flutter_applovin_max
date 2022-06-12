@@ -56,7 +56,7 @@ class BannerMaxView extends StatelessWidget {
         creationParamsCodec: const StandardMessageCodec(),
         onPlatformViewCreated: (int i) {
           print("unique is " + unique);
-          //const MethodChannel channel = MethodChannel('flutter_applovin_banner_'+this.unique);
+          
           MethodChannel channel =
               MethodChannel('flutter_applovin_banner_' + unique);
           channel.setMethodCallHandler((MethodCall call) async =>
