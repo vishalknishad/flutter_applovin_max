@@ -96,9 +96,9 @@ class BannerMaxView extends StatelessWidget {
       controller: controller,
       children: [
         Container(
-            width: sizesNum[size]?.width,
-            height: sizesNum[size]?.height,
-            child: Platform.isAndroid ? banner_value == 'load' ? androidView : Container() : Container()),
+            width: banner_value == 'display' ? sizesNum[size]?.width : 1,
+            height: banner_value == 'display' ? sizesNum[size]?.height : 1,
+            child: Platform.isAndroid ? androidView : Container()),
         Container(
           color: Colors.transparent,
         )
