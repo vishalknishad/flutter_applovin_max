@@ -56,48 +56,51 @@ class BannerMaxView extends StatelessWidget {
         creationParamsCodec: const StandardMessageCodec(),
         onPlatformViewCreated: (int i) {
           print("unique is " + unique);
-          
+
           MethodChannel channel =
               MethodChannel('flutter_applovin_banner_' + unique);
-          channel.setMethodCallHandler((MethodCall call) async =>
-              FlutterApplovinMax.handleMethod(call,
-                  (AppLovinAdListener? event) {
-                print('event changed for ad unit ' + adUnitId);
-                print(event.toString());
-                if (event == AppLovinAdListener.adLoaded) {
-                  banner_value = "load";
-                  where = 0;
-                  controller.jumpToPage(0);
-                  // Timer(Duration(seconds: 2), () {
-                  //   print('timer ended');
-                  //   print(banner_value);
-                  //   if (banner_value == "load") {
-                  //     controller.jumpToPage(1);
-                  //   }
-                  // });
-                } else if (event == AppLovinAdListener.adDisplayed) {
-                  banner_value = "display";
-                  if (where == 1) {
-                    controller.jumpToPage(0);
-                  }
-                } else if (event == AppLovinAdListener.adLoadFailed) {
-                  banner_value = "failed";
-                  where = 1;
-                  controller.jumpToPage(1);
-                }
-                // else {
-                //               banner_value = "other";
-                //               controller.jumpToPage(1);
-                //             }
-              }));
+
+          channel.setMethodCallHandler((MethodCall call) async => FlutterApplovinMax.handleMethod(call, listener));
+
+          // channel.setMethodCallHandler((MethodCall call) async =>
+          //     FlutterApplovinMax.handleMethod(call,
+          //         (AppLovinAdListener? event) {
+          //       print('event changed for ad unit ' + adUnitId);
+          //       print(event.toString());
+          //       if (event == AppLovinAdListener.adLoaded) {
+          //         banner_value = "load";
+          //         where = 0;
+          //         controller.jumpToPage(0);
+          //         // Timer(Duration(seconds: 2), () {
+          //         //   print('timer ended');
+          //         //   print(banner_value);
+          //         //   if (banner_value == "load") {
+          //         //     controller.jumpToPage(1);
+          //         //   }
+          //         // });
+          //       } else if (event == AppLovinAdListener.adDisplayed) {
+          //         banner_value = "display";
+          //         if (where == 1) {
+          //           controller.jumpToPage(0);
+          //         }
+          //       } else if (event == AppLovinAdListener.adLoadFailed) {
+          //         banner_value = "failed";
+          //         where = 1;
+          //         controller.jumpToPage(1);
+          //       }
+          //       // else {
+          //       //               banner_value = "other";
+          //       //               controller.jumpToPage(1);
+          //       //             }
+          //     }));
         });
     return ExpandablePageView(
       physics: NeverScrollableScrollPhysics(),
       controller: controller,
       children: [
         Container(
-            width: banner_value == 'display' ? sizesNum[size]?.width : 1,
-            height: banner_value == 'display' ? sizesNum[size]?.height : 1,
+            width: sizesNum[size]?.width,
+            height: sizesNum[size]?.height,
             child: Platform.isAndroid ? androidView : Container()),
         Container(
           color: Colors.transparent,
