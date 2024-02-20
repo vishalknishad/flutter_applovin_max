@@ -1,7 +1,6 @@
 import 'package:flutter_applovin_max/flutter_applovin_max.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:expandable_page_view/expandable_page_view.dart';
 import 'dart:io';
 import 'dart:async';
 
@@ -36,7 +35,6 @@ class BannerMaxView extends StatelessWidget {
   // late AndroidView androidView;
   String banner_value = "";
   bool visible_banner = true;
-  PageController controller = new PageController(initialPage: 0);
   BannerMaxView(this.listener, this.size, this.adUnitId, this.unique,
       {Key? key})
       : super(key: key);
@@ -94,18 +92,10 @@ class BannerMaxView extends StatelessWidget {
           //       //             }
           //     }));
         });
-    return ExpandablePageView(
-      physics: NeverScrollableScrollPhysics(),
-      controller: controller,
-      children: [
-        Container(
-            width: sizesNum[size]?.width,
-            height: sizesNum[size]?.height,
-            child: Platform.isAndroid ? androidView : Container()),
-        Container(
-          color: Colors.transparent,
-        )
-      ],
+    return Container(
+      width: sizesNum[size]?.width,
+      height: sizesNum[size]?.height,
+      child: Platform.isAndroid ? androidView : null
     );
   }
 }
