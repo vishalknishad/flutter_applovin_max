@@ -12,7 +12,7 @@ dependencies:
   flutter:
     sdk: flutter 
 
-  expandable_page_view: "1.0.4"
+  # expandable_page_view: "1.0.4"
 
 dev_dependencies:
   pedantic_mono: ^1.11.0+2
